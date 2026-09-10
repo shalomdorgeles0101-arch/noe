@@ -713,8 +713,10 @@ hr{
 
   .svc-card-cpt{
     display: flex;
+    justify-content: center;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
   }
 
   .real{
@@ -765,6 +767,7 @@ hr{
   .footer-pied{
     font-size: 10px;
     display: flex;
+    gap: 45px;
     
   }
 
