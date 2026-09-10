@@ -772,4 +772,20 @@ hr{
     width: 100%;
     font-size: 8px;
   }
+
+  .accueil-iconn p{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .accueil-link{
+    width: 100%;
+    font-size: 12px;
+  }
+
+  .accueil-titre{
+    font-size: 14px;
+  }
 }
