@@ -2,6 +2,21 @@
 
 
 
+ :root{
+    --blanc:#ffffff;
+    --jaune:#E8AE0F;
+    --jaune-vif:#F5C518;
+    --bleu:#173A63;
+    --bleu-clair:#4B6E9C;
+    --vert:#1E8F4E;
+    --vert-fonce:#146638;
+    --ligne:#E4E8EF;
+  }
+
+
+
+
+
 
 *{
     padding: 0;
@@ -9,6 +24,11 @@
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
     scroll-behavior: smooth;
+}
+
+body{
+    background-color: var(--couleur-principale);
+    color: var(--couleur-fond);
 }
 
 
@@ -23,8 +43,8 @@
     width: 100%;
     position: fixed;
     z-index: 1000;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
+    background: #0B1543;
+    
     align-items: center;
     padding: 15px;
 }
@@ -63,18 +83,18 @@ ul  li a:hover{
 .logo a{
     text-decoration: none;
     font-weight: bold;
-    color: #d4ac0d;
+    color: #FFD400;
 }
 
 .link{
     padding: 10px;
-    background-color: #d4ac0d;
-    border-radius: 20px;
+    background-color: var(--vert);
+    border-radius: 10px;
     transition: 0.6s ease;
 }
 
 .link:hover{
-    background-color: #a67c00;
+    background-color: var(--vert-fonce);
     color: #FFFF;
 }
 
@@ -87,49 +107,353 @@ ul  li a:hover{
 
 
 
+/* =========================
+   HERO
+========================= */
 
-
-.accueil{
-    background :  linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url("dddd.jpg");
-    color: #FFFF;
-    background-repeat: no-repeat;
-    background-size: cover;
+#accueil {
+    position: relative;
+    overflow: hidden;
+    background: #0B1543;
+    backdrop-filter: blur(10px);
     background-position: center;
-    text-align: center;
-    padding-top: 200px;
-    height: 100vh;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.accueil {
+    width: 90%;
+    max-width: 1300px;
+    min-height: 700px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
     align-items: center;
+    gap: 40px;
+    
 }
 
+/* =========================
+   TEXTE
+========================= */
 
-
-.accueil-link,
-.accueil-titre{
-    margin-bottom: 25px;
+.accueil-contenu {
+    position: relative;
+    z-index: 2;
 }
 
-.accueil-titre span{
-    color: #d4ac0d;
+.accueil-titre h1 {
+    font-size: 55px;
+    line-height: 1.1;
+    margin: 0;
+    color: var(--blanc);
 }
 
-.accueil-titre h1{
+.accueil-titre h1 span {
+    color: #E8AE0F;
+}
+
+.accueil-titre p {
+    margin-top: 25px;
+    line-height: 1.7;
+    color: var(--blanc);
     margin-bottom: 15px;
 }
 
-.accueil-iconn{
-    display: block;
-    text-align: center;
+/* =========================
+   RADAR
+========================= */
+
+.accueil-radar {
+    display: flex;
     align-items: center;
-    
-    gap: 25px;
+    justify-content: center;
+    position: relative;
 }
+
+.radar {
+    width: 430px;
+    height: 430px;
+    position: relative;
+}
+
+/* Halo autour du radar */
+
+.radar::before {
+    content: "";
+    position: absolute;
+    inset: 10%;
+    border-radius: 50%;
+    background: rgba(30, 143, 78, 0.04);
+    box-shadow:
+        0 0 40px rgba(30, 143, 78, 0.08),
+        inset 0 0 40px rgba(30, 143, 78, 0.04);
+
+    animation: radarGlow 3s ease-in-out infinite;
+}
+
+.radar svg {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    z-index: 2;
+}
+
+/* Cercles */
+
+.radar-circle {
+    fill: none;
+    stroke: #4B6E9C;
+    stroke-width: 1.2;
+    stroke-opacity: 0.30;
+}
+
+/* Axes */
+
+.radar-axis {
+    stroke: #4B6E9C;
+    stroke-width: 1;
+    stroke-opacity: 0.16;
+}
+
+/* =========================
+   BALAYAGE DU RADAR
+========================= */
+
+.radar-sweep {
+    transform-origin: 150px 150px;
+    animation: radarRotate 4s linear infinite;
+}
+
+/* Zone lumineuse */
+
+.sweep-fill {
+    fill: #1E8F4E;
+    fill-opacity: 0.16;
+}
+
+/* Ligne du radar */
+
+.sweep-line {
+    stroke: #1E8F4E;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+
+    filter:
+        drop-shadow(0 0 5px rgba(30, 143, 78, 0.7));
+}
+
+/* =========================
+   CENTRE
+========================= */
+
+.radar-center {
+    fill: #E8AE0F;
+
+    filter:
+        drop-shadow(0 0 6px rgba(232, 174, 15, 0.8));
+
+    animation: centerPulse 2s ease-in-out infinite;
+}
+
+/* =========================
+   POINTS DÉTECTÉS
+========================= */
+
+.blip {
+    fill: #1E8F4E;
+
+    transform-box: fill-box;
+    transform-origin: center;
+
+    animation: radarPulse 2.6s ease-in-out infinite;
+
+    filter:
+        drop-shadow(0 0 6px rgba(30, 143, 78, 0.9));
+}
+
+.blip-delay-1 {
+    animation-delay: 0.8s;
+}
+
+.blip-delay-2 {
+    animation-delay: 1.6s;
+}
+
+/* =========================
+   ANIMATION ROTATION
+========================= */
+
+@keyframes radarRotate {
+
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =========================
+   ANIMATION DES POINTS
+========================= */
+
+@keyframes radarPulse {
+
+    0% {
+        opacity: 0.15;
+        transform: scale(0.6);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1.5);
+    }
+
+    70% {
+        opacity: 0.8;
+        transform: scale(1);
+    }
+
+    100% {
+        opacity: 0.15;
+        transform: scale(0.6);
+    }
+}
+
+/* =========================
+   CENTRE DU RADAR
+========================= */
+
+@keyframes centerPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
+
+/* =========================
+   HALO
+========================= */
+
+@keyframes radarGlow {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(0.95);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.03);
+    }
+}
+
+/* =========================
+   TABLETTE
+========================= */
+
+
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+    .accueil {
+        width: 90%;
+        min-height: auto;
+        padding: 60px 0;
+    }
+
+    .accueil-titre h1 {
+        font-size: 38px;
+    }
+
+    .accueil-titre p {
+        font-size: 15px;
+    }
+
+    .radar {
+        width: 280px;
+        height: 280px;
+    }
+}
+
+/* =========================
+   ACCESSIBILITÉ
+========================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .radar-sweep,
+    .blip,
+    .radar-center,
+    .radar::before {
+        animation: none;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .fa-alarm-clock,
 .fa-award,
 .fa-shield-halved,
 .fa-headphones{
    font-size: 25px;
-   color: #d4ac0d;
+   color: #E8AE0F;
    
 }
 
@@ -137,12 +461,13 @@ ul  li a:hover{
     padding-top: 30px;
     display: flex;
     justify-content: center;
+    color: var(--blanc);
 }
 
 .accueil-link{
     display: flex;
     gap: 35px;
-    justify-content: center;
+    
 }
 
 
@@ -155,23 +480,23 @@ ul  li a:hover{
 }
 
 .svc{
-    background-color: #d4ac0d;
+    background-color: var(--vert);
     transition: 0.6s ease;
     color: #FFFF;
 }
 
 .svc:hover{
-    background-color: #a67c00;
+    background-color: var(--vert-fonce);
 }
 
 .ddv{
     background-color: #ffffff44;
-    color: #ffcf10;
+    color: var(--ligne);
     transition: 0.6s ease;
 }
 
 .ddv:hover{
-    background-color: #d4ac0d57;
+    background-color: var(--vert-fonce);
     color: #FFFF;
 }
 
@@ -209,30 +534,34 @@ ul  li a:hover{
     text-decoration: none;
     color: #FFFF;
     padding: 15px;
-    background-color: #d4ac0d;
+    background-color: var(--vert);
     border-radius: 10px;
     transition: 0.6s ease;
 }
 
 .apropo-link a:hover{
-    background-color: #a67c00;
+    background-color: var(--vert-fonce);
 }
 
 .app-titre p,
 .app-titre h1{
     margin-bottom: 10px;
+    
 }
 
 .app-titre h1{
     color: #042335;
 }
 
-.fa-circle-check,
-.app-p{
-    color: #d4ac0d;
+.fa-circle-check{
+    color: var(--vert);
     font-weight: bold;
 }
 
+.app-p{
+    color: #a67c00;
+    font-weight: bold;
+}
 .service{
     margin-top: 25px;
     text-align: center;
@@ -287,7 +616,9 @@ ul  li a:hover{
 .fa-door-closed,
 .fa-bolt,
 .fa-screwdriver-wrench,
-.fa-toilet-portable{
+.fa-toilet-portable,
+.fa-fire,
+.fa-mobile-retro{
     font-size: 40px;
     margin-bottom: 35px;
     color: #d4ac0d;
@@ -299,20 +630,22 @@ ul  li a:hover{
 .svc-icone:hover .fa-door-closed,
 .svc-icone:hover .fa-bolt,
 .svc-icone:hover .fa-screwdriver-wrench,
-.svc-icone:hover .fa-toilet-portable{
-    color: #042335;
+.svc-icone:hover .fa-toilet-portable,
+.svc-icone:hover .fa-fire,
+.svc-icone:hover .fa-mobile-retro{
+    color: #0B1543;
 }
 
 
 .svc-icone a{
     text-decoration:none ;
-    color: #3b2e00;
+    color: var(--vert);
     transition: 0.6s ease;
 
 }
 
 .svc-icone a:hover{
-    color: #d4ac0d;
+    color: var(--vert-fonce);
 }
 
 
@@ -321,9 +654,10 @@ ul  li a:hover{
     display: flex;
     justify-content: center;
     pad: 25px;
-    background-color: #042335;
+    background-color: #0B1543;
     margin: 10px;
     color: #FFFF;
+    border: solid 1px;
 
 }
 
@@ -339,7 +673,8 @@ ul  li a:hover{
 .fa-user,
 .fa-briefcase,
 .fa-certificate,
-.fa-clock{
+.fa-clock,
+.fa-fire{
     color: #d4ac0d;
     font-size: 40px;
 }
@@ -438,6 +773,7 @@ summary{
     justify-content: center;
     text-align: center;
     margin: 25px;
+   
     
 }
 
@@ -445,7 +781,7 @@ details{
     margin-bottom: 45px;
     padding:45px ;
     border: solid 1px #042335;
-    background-color: #042335;
+    background-color: #0B1543;
     color: #d4ac0d;
     
     
@@ -492,7 +828,7 @@ details p{
     justify-content: center;
     margin-top: 50px;
     text-decoration: none;
-    background-color: #042335;
+    background-color: #0B1543;
     padding: 25px;
     color: #FFFF;
     border-radius: 10px;
@@ -523,8 +859,8 @@ iframe{
 
 
 footer{
-    background-color: #042335;
-    height: 69vh;
+    background-color: #0B1543;
+    height: 98vh;
 }
 
 .footer{
@@ -573,6 +909,12 @@ hr{
     flex-direction: column;
     gap: 10px;
     color: #FFFF;
+}
+
+.footer-contact p{
+    display: flex;
+    gap: 10px ;
+    align-items: center;
 }
 
 .footer-titre h3,
@@ -739,7 +1081,8 @@ hr{
   }
 
   iframe{
-    width: 100%;
+    width: 90%;
+    
   }
 
   .ctt-info{
@@ -786,9 +1129,34 @@ hr{
   .accueil-link{
     width: 100%;
     font-size: 12px;
+    display: flex;
+    justify-content: center;
+
   }
 
   .accueil-titre{
     font-size: 14px;
   }
+
+
+   .accueil {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 120px 0;
+        
+    }
+
+    .accueil-contenu {
+        order: 1;
+    }
+
+    .accueil-radar {
+        order: 2;
+        margin-top: 30px;
+    }
+
+    .radar {
+        width: 350px;
+        height: 350px;
+    }
 }
